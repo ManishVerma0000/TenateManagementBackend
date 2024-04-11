@@ -11,9 +11,10 @@ const multer = require('multer')
 const path = require('path')
 const bodyParser = require('body-parser')
 const upload = require('./middleware/multer')
+const sendEmail = require('./middleware/email')
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+// sendEmail()
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 
