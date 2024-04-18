@@ -95,4 +95,4 @@ const updateTenate = async (req, res) => {
 
 
 
-module.exports = registerTenate
+module.exports = { registerTenate, updateTenate }

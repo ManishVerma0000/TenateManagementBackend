@@ -3,16 +3,17 @@ const router = express.Router();
 const upload = require('../middleware/multer')
 
 
-const registerTenate = require('../controllers/registerTenate')
+const { registerTenate, updateTenate } = require('../controllers/registerTenate')
 const listoftenate = require('../controllers/listoftenate')
+const { listofbuilding, addbuilding } = require('../controllers/addbuilding')
 
 
 
 
 
 
-
-
+router.post('/addbuilding', addbuilding)
+router.get('/listofbuilding', listofbuilding)
 router.post('/registertenate', upload, registerTenate)
 router.get('/list', listoftenate)
 

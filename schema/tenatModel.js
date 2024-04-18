@@ -35,6 +35,10 @@ const tenatSchema = new mongoose.Schema({
         default: ""
     }
     ,
+    people: {
+        type: String,
+        default: ""
+    },
     addhar: {
         type: String,
         default: ""
