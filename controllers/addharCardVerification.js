@@ -1,7 +1,5 @@
 const axios = require('axios')
-// export const CLIENT_ID = "5b172f070b36c9418feef5b8134e61d8:5452178d940cc4b2251a1d6c89dde41f"
-// export const SECRET_KEY = "dNzGFL03QF00m9K7SwKBcnCK32aHrkvpICGy8bpMPAjowc0K05NwuahPWD2JSCsYD"
-//export const AADHARWITHOUTOTP = "https://api.emptra.com/emptra/aadharVerification"
+
 const addharCardVerification = async (req, res) => {
     try {
 
@@ -18,10 +16,10 @@ const addharCardVerification = async (req, res) => {
                 });
                 let config = {
                     method: 'post',
-                    url: 'https://api.emptra.com/emptra/aadharVerification',
+                    url: process.env.URL,
                     headers: {
-                        'clientId': '5b172f070b36c9418feef5b8134e61d8:5452178d940cc4b2251a1d6c89dde41f',
-                        'secretKey': 'dNzGFL03QF00m9K7SwKBcnCK32aHrkvpICGy8bpMPAjowc0K05NwuahPWD2JSCsYD',
+                        'clientId': process.env.CLIENTID,
+                        'secretKey': process.env.SECRETKEY,
                         'Content-Type': 'application/json',
                     },
                     data: data
@@ -30,7 +28,7 @@ const addharCardVerification = async (req, res) => {
                 axios.request(config)
                     .then(async (response) => {
                         console.log(response.data)
-                        
+
                     })
                     .catch((error) => {
                         res.status(500).send({ message: error.message })
