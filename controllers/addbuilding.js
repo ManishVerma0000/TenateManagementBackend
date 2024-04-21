@@ -3,10 +3,22 @@ const building = require('../schema/buildingModel')
 
 const addbuilding = async (req, res) => {
     try {
-        const { buildingname, room, location, caretaker } = req.body
-        const createBuilding = await building.create(req.body)
 
-        await res.status(200).send(createBuilding)
+        const { buildingname, room, location, caretaker } = req.body
+        if (!buildingname || !room || !location || !caretaker) {
+            await res.status(400).send('please enter the building')
+        } else {
+            const createBuilding = await building.create({
+                buildingname,
+                rooms: room || [],
+                location,
+                caretaker
+            });
+
+
+            await res.status(200).send(createBuilding)
+
+        }
 
     } catch (error) {
         await res.status(400).send(error.message)

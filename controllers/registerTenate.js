@@ -3,17 +3,12 @@ const tenat = require('../schema/tenatModel')
 const registerTenate = async (req, res) => {
     try {
 
-        const { username, email, phone, address, orgnisation, buildingno, dateofjoining, rent } = req.body;
-        console.log(req.body, 'this is the value of the body')
-        const savedb = await tenat.create(req.body,
-            {
-                addhar: req.file.filename
-            });
-        console.log(savedb)
-        await res.status(200).send({ message: "created", savedb })
-        console.log(req.body)
-
-
+        const { username, email, phone, address, orgnisation, dateofjoining, rent, addhar, roomNo, buildingId } = req.body;
+        console.log(req.body, 'thus')
+        const savedb = await tenat.create(req.body
+        );
+        console.log(savedb, 'this is the value in the db')
+        await res.status(200).send({ message: "created", data: savedb })
     } catch (error) {
         await res.status(400).send(error.message)
     }

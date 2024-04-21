@@ -22,10 +22,7 @@ const tenatSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    buildingno: {
-        type: String,
-        default: ""
-    },
+
     dateofjoining: {
         type: String,
         default: ""
@@ -35,11 +32,23 @@ const tenatSchema = new mongoose.Schema({
         default: ""
     }
     ,
+    addhar: {
+        type: String,
+        default: ""
+    },
+    roomNo: {
+        type: String,
+        default: ""
+    },
+    buildingId: {
+        type: String,
+        default: ""
+    },
     people: {
         type: String,
         default: ""
     },
-    addhar: {
+    rentDate: {
         type: String,
         default: ""
     }

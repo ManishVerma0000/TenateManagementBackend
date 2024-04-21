@@ -17,7 +17,7 @@ const rentSchema = new mongoose.Schema({
     ispending: {
         type: Boolean,
         default: true
-    }a
+    }
 })
 
 const rent = mongoose.model('rent', rentSchema)
