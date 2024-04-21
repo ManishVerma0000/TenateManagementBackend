@@ -4,17 +4,37 @@ const registerTenate = async (req, res) => {
     try {
 
         const { username, email, phone, address, orgnisation, dateofjoining, rent, addhar, roomNo, buildingId } = req.body;
-        console.log(req.body, 'thus')
-        const savedb = await tenat.create(req.body
-        );
-        console.log(savedb, 'this is the value in the db')
+        let dateObj = new Date(dateofjoining);
+
+        // Add one month
+        dateObj.setMonth(dateObj.getMonth() + 1);
+
+        // Format the resulting date
+        let year = dateObj.getFullYear();
+        let month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Adding 1 since getMonth returns 0-indexed month
+        let day = String(dateObj.getDate()).padStart(2, "0");
+
+        // Concatenate the formatted parts
+        let formattedDate = `${year}-${month}-${day}`;
+
+        const savedb = await tenat.create({
+            dateofjoining: dateofjoining,
+            username: username,
+            email: email,
+            phone: phone,
+            addhar: addhar,
+            address: address,
+            orgnisation: orgnisation,
+            rent: rent, roomNo: roomNo,
+            buildingId: buildingId,
+            NextInstallement: formattedDate
+        });
+        // console.log(savedb, 'this is the value in the db')
         await res.status(200).send({ message: "created", data: savedb })
     } catch (error) {
         await res.status(400).send(error.message)
     }
 }
-
-
 const updateTenate = async (req, res) => {
     try {
 

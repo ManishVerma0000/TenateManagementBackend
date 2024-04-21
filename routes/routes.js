@@ -9,9 +9,10 @@ const { listofbuilding, addbuilding } = require('../controllers/addbuilding')
 const { registerAdmin, loginadmin } = require('../controllers/registeradmin')
 const findAvailableRoom = require('../controllers/findAviableroom')
 const addharCardVerification = require('../controllers/addharCardVerification')
+const totalBill = require('../controllers/rent')
 
 
-
+router.get('/totalBill', totalBill)
 router.post('/addharCardVerification', addharCardVerification)
 router.post('/findAvailableRoom', findAvailableRoom)
 router.post('/login', loginadmin)

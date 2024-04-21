@@ -48,9 +48,14 @@ const tenatSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    rentDate: {
+
+    NextInstallement: {
         type: String,
         default: ""
+    },
+    ispending: {
+        type: Boolean,
+        default: true
     }
 })
 
