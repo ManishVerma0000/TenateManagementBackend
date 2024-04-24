@@ -110,4 +110,50 @@ const updateTenate = async (req, res) => {
 
 
 
-module.exports = { registerTenate, updateTenate }
+const tenateProfile = async (req, res) => {
+    try {
+
+        const _id = req.query.id;
+        const tenatedetails = await tenat.findById(_id)
+        await res.status(200).send(tenatedetails)
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+    }
+}
+
+
+const deleteTenateProfile = async (req, res) => {
+    try {
+
+        const tenatId = req.query.id;
+        if (!tenatId) {
+            await res.status(400).send({ message: "please enter the id" })
+        } else {
+            // const deleteuser = await tenat.findByIdAndDelete({ _id: tenatId })
+            await res.status(200).send({ message: "delted successfully..." })
+        }
+
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+    }
+}
+
+const Tenateprofile = async (req, res) => {
+    try {
+
+        const tenatId = req.query.id;
+        if (!tenatId) {
+            await res.status(400).send({ message: "please enter the id" })
+        } else {
+            const tenateDeatils = await tenat.findById(tenatId)
+            // const deleteuser = await tenat.findByIdAndDelete({ _id: tenatId })
+            await res.status(200).send({ message: "updated successfullly", data: tenateDeatils })
+        }
+
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+    }
+}
+
+
+module.exports = { registerTenate, updateTenate, tenateProfile, deleteTenateProfile, Tenateprofile }

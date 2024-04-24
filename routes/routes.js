@@ -3,14 +3,24 @@ const router = express.Router();
 const upload = require('../middleware/multer')
 
 
-const { registerTenate, updateTenate } = require('../controllers/registerTenate')
+const { registerTenate, updateTenate, tenateProfile, deleteTenateProfile, Tenateprofile } = require('../controllers/registerTenate')
 const listoftenate = require('../controllers/listoftenate')
 const { listofbuilding, addbuilding } = require('../controllers/addbuilding')
-const { registerAdmin, loginadmin, changepassword, forgetPassword } = require('../controllers/registeradmin')
+const { registerAdmin, loginadmin, changepassword, forgetPassword, adminProfile } = require('../controllers/registeradmin')
 const findAvailableRoom = require('../controllers/findAviableroom')
 const addharCardVerification = require('../controllers/addharCardVerification')
 const { totalBill, pendingBill, updatePaymentsuccess, makepayementpending, completedPayement } = require('../controllers/rent')
+const { generatepdf, pdf } = require('../controllers/generatePdf')
 
+
+
+
+router.get('/pdf', pdf)
+router.get('/Tenateprofile', Tenateprofile)
+router.get('/deleteTenateProfile', deleteTenateProfile)
+router.post('/generatepdf', generatepdf)
+router.get('/tenateProfile', tenateProfile)
+router.get('/adminProfile', adminProfile)
 router.post('/forgetPassword', forgetPassword)
 router.post('/changepassword', changepassword)
 router.get('/makepayementpending', makepayementpending)

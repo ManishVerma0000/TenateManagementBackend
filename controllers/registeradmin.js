@@ -119,6 +119,19 @@ const forgetPassword = async (req, res) => {
 
 
 
+const adminProfile = async (req, res) => {
+    try {
+        const _id = req.query.id;
+        const finduser = await admin.findById(_id)
+        await res.status(200).send({ message: "here is the admin details", data: finduser })
+
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+    }
+}
 
 
-module.exports = { registerAdmin, loginadmin, changepassword, forgetPassword }
+
+
+
+module.exports = { registerAdmin, loginadmin, changepassword, forgetPassword, adminProfile }

@@ -4,6 +4,7 @@ dontenv.config()
 const express = require('express')
 const app = express()
 const port = 7000;
+const fs = require('fs-extra')
 const cors = require('cors')
 const router = require('./routes/routes')
 const conn = require('./conn/db')
@@ -27,18 +28,19 @@ const cron = require('node-cron');
 
 // cron.schedule('* * * * *', () => {
 //     const currentTime = new Date().toLocaleTimeString();
-//     sendEmail()
+//     // sendEmail()
 //     console.log('Task executed at:', currentTime);
 // });
 // cron.schedule('*/2 * * * * *', () => {
-//     const currentTime = new Date().toLocaleTimeString();
-//     sendEmail();
-//     console.log('Task executed at:', currentTime);
+//     console.log('running')
+//     fsExtra.emptyDirSync(pdf);
 // });
 
 
 // Parse the input date string
 
+
+app.use('/pdf', express.static('pdf'))
 
 app.get('/image', upload, async (req, res) => {
 
