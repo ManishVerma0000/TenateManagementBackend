@@ -47,7 +47,7 @@ app.get('/image', upload, async (req, res) => {
     console.log(req.file)
 })
 
-const ipaddress = '172.19.224.1'
+const ipaddress = '10.61.44.121'
 
 app.listen(port, ipaddress, () => {
     console.log(`server is listen on the port on  http://${ipaddress}:${port}`)

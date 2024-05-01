@@ -3,6 +3,7 @@ const tenat = require('../schema/tenatModel')
 const registerTenate = async (req, res) => {
     try {
 
+        console.log(req.body)
         const { username, email, phone, address, orgnisation, dateofjoining, rent, addhar, roomNo, buildingId } = req.body;
         let dateObj = new Date(dateofjoining);
 

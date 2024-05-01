@@ -1,5 +1,8 @@
-const building = require('../schema/buildingModel')
 
+
+
+
+const building = require('../schema/buildingModel');
 
 const addbuilding = async (req, res) => {
     try {
@@ -8,6 +11,8 @@ const addbuilding = async (req, res) => {
         if (!buildingname || !room || !location || !caretaker) {
             await res.status(400).send('please enter the building')
         } else {
+            console.log(req.body, 'this is the value of the body')
+
             const createBuilding = await building.create({
                 buildingname,
                 rooms: room || [],
@@ -27,6 +32,9 @@ const addbuilding = async (req, res) => {
 
 
 
+
+
+
 const listofbuilding = async (req, res) => {
     try {
         const listofbuildingdata = await building.find({})
@@ -38,4 +46,45 @@ const listofbuilding = async (req, res) => {
     }
 }
 
-module.exports = { addbuilding, listofbuilding }
+
+
+const totalRoom = async (req, res) => {
+    try {
+        const buildingId = req.query.id;
+        if (!buildingId) {
+            await res.status(400).send({ message: "please enter the id" })
+        } else {
+            const findBuilding = await building.findById({ _id: buildingId })
+            await res.status(200).send({ message: "details", data: findBuilding })
+        }
+
+
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+    }
+}
+
+const Building = require('../schema/buildingModel');
+const updateRoom = async (req, res) => {
+
+    try {
+        const { buildingId, selectedRooms } = req.body;
+        const building = await Building.findById(buildingId);
+        const formattedSelectedRooms = Array.isArray(selectedRooms) ? selectedRooms : [selectedRooms];
+        building.completedRoom.push(...formattedSelectedRooms);
+        building.rooms = building.rooms.filter(room => !formattedSelectedRooms.includes(room));
+        await building.save();
+        res.status(200).json({
+            message: 'Rooms selected successfully',
+            data: building
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+
+
+module.exports = { addbuilding, listofbuilding, totalRoom, updateRoom }

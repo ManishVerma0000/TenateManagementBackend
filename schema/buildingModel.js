@@ -7,7 +7,7 @@ const buildingSchema = new mongoose.Schema({
         default: ""
     },
     rooms: {
-        type: Array,
+        type: [String],
         default: []
     },
     location: {
@@ -17,6 +17,14 @@ const buildingSchema = new mongoose.Schema({
     caretaker: {
         type: String,
         default: ""
+    },
+    completedRoom: {
+        type: Array,
+        default: []
+    },
+    pendingRoom: {
+        type: Array,
+        default: []
     }
 })
 
