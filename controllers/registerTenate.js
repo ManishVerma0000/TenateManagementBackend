@@ -6,11 +6,8 @@ const registerTenate = async (req, res) => {
         console.log(req.body)
         const { username, email, phone, address, orgnisation, dateofjoining, rent, addhar, roomNo, buildingId } = req.body;
         let dateObj = new Date(dateofjoining);
-
-        // Add one month
         dateObj.setMonth(dateObj.getMonth() + 1);
 
-        // Format the resulting date
         let year = dateObj.getFullYear();
         let month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Adding 1 since getMonth returns 0-indexed month
         let day = String(dateObj.getDate()).padStart(2, "0");
@@ -30,7 +27,7 @@ const registerTenate = async (req, res) => {
             buildingId: buildingId,
             NextInstallement: formattedDate
         });
-        // console.log(savedb, 'this is the value in the db')
+        console.log(savedb, 'this is the value in the db')
         await res.status(200).send({ message: "created", data: savedb })
     } catch (error) {
         await res.status(400).send(error.message)
