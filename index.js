@@ -3,7 +3,7 @@ const dontenv = require('dotenv')
 dontenv.config()
 const express = require('express')
 const app = express()
-const port = 7000;
+const port = process.env.PORT || 7000;
 const fs = require('fs-extra')
 const cors = require('cors')
 const router = require('./routes/routes')

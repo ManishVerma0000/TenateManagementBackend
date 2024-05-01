@@ -5,7 +5,7 @@ const upload = require('../middleware/multer')
 
 const { registerTenate, updateTenate, tenateProfile, deleteTenateProfile, Tenateprofile } = require('../controllers/registerTenate')
 const listoftenate = require('../controllers/listoftenate')
-const { listofbuilding, addbuilding, updateRoom } = require('../controllers/addbuilding')
+const { listofbuilding, addbuilding, updateRoom, findopenRoomsOfBuilding } = require('../controllers/addbuilding')
 const { registerAdmin, loginadmin, changepassword, forgetPassword, adminProfile } = require('../controllers/registeradmin')
 const findAvailableRoom = require('../controllers/findAviableroom')
 const addharCardVerification = require('../controllers/addharCardVerification')
@@ -14,6 +14,7 @@ const { generatepdf, pdf } = require('../controllers/generatePdf')
 
 
 
+router.get('/findopenRoomsOfBuilding', findopenRoomsOfBuilding)
 router.post('/updateRoom', updateRoom)
 router.get('/pdf', pdf)
 router.get('/Tenateprofile', Tenateprofile)

@@ -65,6 +65,25 @@ const totalRoom = async (req, res) => {
 }
 
 const Building = require('../schema/buildingModel');
+
+
+
+const findopenRoomsOfBuilding = async (req, res) => {
+    try {
+        const buildingId = req.query.id;
+        if (!buildingId) {
+            await res.status(400).send({ message: "Please select the building id" })
+        } else {
+            const buildingDetails = await building.findById({ _id: buildingId })
+            await res.status(200).send(buildingDetails)
+        }
+
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+    }
+}
+
+
 const updateRoom = async (req, res) => {
 
     try {
@@ -87,4 +106,4 @@ const updateRoom = async (req, res) => {
 
 
 
-module.exports = { addbuilding, listofbuilding, totalRoom, updateRoom }
+module.exports = { addbuilding, listofbuilding, totalRoom, updateRoom, findopenRoomsOfBuilding }
