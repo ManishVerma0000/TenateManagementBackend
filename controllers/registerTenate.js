@@ -25,7 +25,8 @@ const registerTenate = async (req, res) => {
             orgnisation: orgnisation,
             rent: rent, roomNo: roomNo,
             buildingId: buildingId,
-            NextInstallement: formattedDate
+            NextInstallement: formattedDate,
+            advanceRent: advanceRent
         });
         console.log(savedb, 'this is the value in the db')
         await res.status(200).send({ message: "created", data: savedb })

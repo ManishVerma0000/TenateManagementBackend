@@ -56,6 +56,10 @@ const tenatSchema = new mongoose.Schema({
     ispending: {
         type: Boolean,
         default: true
+    },
+    advanceRent: {
+        type: String,
+        default: ""
     }
 })
 
