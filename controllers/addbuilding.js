@@ -7,19 +7,30 @@ const building = require('../schema/buildingModel');
 const addbuilding = async (req, res) => {
     try {
 
+
         const { buildingname, room, location, caretaker } = req.body
+        console.log(req.body)
+        console.log(parseInt(room))
+
         if (!buildingname || !room || !location || !caretaker) {
             await res.status(400).send('please enter the building')
         } else {
-            console.log(req.body, 'this is the value of the body')
+            let arrayOfRooms = []
+            const sendAllEmails = async () => {
+                for (let i = 0; i <= parseInt(room); i++) {
+                    arrayOfRooms.push(buildingname + i)
+                }
+
+            };
+            sendAllEmails()
 
             const createBuilding = await building.create({
                 buildingname,
-                rooms: room || [],
+                rooms: arrayOfRooms || [],
                 location,
                 caretaker
             });
-
+            console.log(createBuilding)
 
             await res.status(200).send(createBuilding)
 

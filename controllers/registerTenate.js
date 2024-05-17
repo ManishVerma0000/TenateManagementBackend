@@ -3,8 +3,8 @@ const tenat = require('../schema/tenatModel')
 const registerTenate = async (req, res) => {
     try {
 
-        console.log(req.body)
-        const { username, email, phone, address, orgnisation, dateofjoining, rent, addhar, roomNo, buildingId } = req.body;
+
+        const { username, email, phone, address, orgnisation, dateofjoining, rent, addhar, roomNo, buildingId, advanceRent } = req.body;
         let dateObj = new Date(dateofjoining);
         dateObj.setMonth(dateObj.getMonth() + 1);
 
@@ -31,6 +31,7 @@ const registerTenate = async (req, res) => {
         console.log(savedb, 'this is the value in the db')
         await res.status(200).send({ message: "created", data: savedb })
     } catch (error) {
+        console.log(error)
         await res.status(400).send(error.message)
     }
 }

@@ -3,7 +3,7 @@ const axios = require('axios')
 const addharCardVerification = async (req, res) => {
     try {
 
-        const addharcardnumber = req.body.addharcardnumber;
+        const addharcardnumber = 866376196167;
         console.log(addharcardnumber)
         if (!addharcardnumber) {
             await res.status(400).send({ message: "please enter the addhar card number" })
