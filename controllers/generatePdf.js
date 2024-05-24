@@ -7,9 +7,9 @@ const tenat = require("../schema/tenatModel");
 // const IP_ADDRESS = require("../ipAddress")
 const generatepdf = async (req, res) => {
 
-    console.log(req.body, 'this is the data in the body side')
+    // console.log(req.body, 'this is the data in the body side')
 
-    const tenateDetails = await tenat.findById({ _id: req.body.id })
+    // const tenateDetails = await tenat.findById({ _id: req.body.id })
     try {
         const html1 = `<!DOCTYPE html>
     <html>
@@ -238,12 +238,7 @@ const generatepdf = async (req, res) => {
                             <div class = "invoice-head-bottom">
                                 <div class = "invoice-head-bottom-left">
                                     <ul>
-                                        <li class = 'text-bold'>Invoiced To:</li>
-                                        <li>${tenateDetails.email}</li>
-                                        <li>${tenateDetails.roomNo}</li>
-                                         <li>${tenateDetails.addhar}</li>
-                                        <li>${tenateDetails.rent}</li>
-                                        <li>${tenateDetails.buildingId}</li>
+                                   
                                     </ul>
                                 </div>
                                 <div class = "invoice-head-bottom-right">
@@ -369,7 +364,7 @@ const generatepdf = async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
         res.status(400).send({ message: error.message })
     }
 }
@@ -380,23 +375,25 @@ const pdf = async (req, res) => {
     try {
 
         const tenateid = req.query.id;
+        console.log(tenateid, 'this is the value of the tenate idx')
         if (!tenateid) {
             await res.status(400).send('please enter the tenate id')
         } else {
             const data = await tenat.findById({ _id: tenateid })
             // console.log(data, 'this is the value of the id')
             if (data) {
-                axios.post(process.env.BACKENDURL + '/api/generatepdf', data).then(async (response) => {
+                axios.post('http://15.207.39.254:7000/' + '/api/generatepdf', data).then(async (response) => {
                     console.log(response.data.data, 'this is the value of the response')
                     await res.status(200).send(response.data.data)
                 }).catch((err) => {
-                    console.log(err)
+                    console.log(err.message)
                 })
             }
         }
 
 
     } catch (error) {
+        console.log(error.message)
         await res.status(400).send(error.message)
 
     }
