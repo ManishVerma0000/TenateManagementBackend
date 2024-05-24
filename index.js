@@ -47,6 +47,9 @@ app.get('/image', upload, async (req, res) => {
     console.log(req.file)
 })
 
+
+console.log("submitdate", new Date().toLocaleDateString())
+
 app.get('/', async (req, res) => {
 
     await res.status(200).send({ message: "welcome to the first page" })
