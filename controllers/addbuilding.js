@@ -8,11 +8,11 @@ const addbuilding = async (req, res) => {
     try {
 
 
-        const { buildingname, room, location, caretaker } = req.body
+        const { buildingname, room, location, caretaker, phoneNumber } = req.body
         console.log(req.body)
         console.log(parseInt(room))
 
-        if (!buildingname || !room || !location || !caretaker) {
+        if (!buildingname || !room || !location || !caretaker || !phoneNumber) {
             await res.status(400).send('please enter the building')
         } else {
             let arrayOfRooms = []
@@ -28,6 +28,7 @@ const addbuilding = async (req, res) => {
                 buildingname,
                 rooms: arrayOfRooms || [],
                 location,
+                phoneNumber,
                 caretaker
             });
             console.log(createBuilding)
@@ -114,7 +115,64 @@ const updateRoom = async (req, res) => {
     }
 }
 
+const deleteBuildings = async (req, res) => {
+    try {
+        const id = req.query.id;
+        if (!id) {
+            await res.status(400).send({ message: "please enter the id here" })
+        } else {
+            const buildingdetails = await building.findByIdAndDelete({ _id: id })
+
+            await res.status(200).send({ message: "buildings details", data: buildingdetails })
+        }
+
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+
+    }
+}
 
 
 
-module.exports = { addbuilding, listofbuilding, totalRoom, updateRoom, findopenRoomsOfBuilding }
+
+const updateBuildings = async (req, res) => {
+    try {
+
+        const _id = req.query.id;
+        const data = req.body
+        if (!_id) {
+            await res.status(400).send({ message: "please enter the building details" })
+        } else {
+            const buildinddetailsdata = await building.findByIdAndUpdate(_id, { data })
+            await res.status(200).send(buildinddetailsdata)
+        }
+
+    } catch (error) {
+        await res.status(400).send({ message: error.message })
+    }
+}
+
+const singleBuildingDetails = async (req, res) => {
+    try {
+        const id = req.query.id
+        if (!id) {
+            await res.status(400).send({ message: "please enter the building details" })
+        } else {
+            const singleBuildingDetailsdb = await building.findById(id)
+            await res.status(200).send(singleBuildingDetailsdb)
+        }
+
+
+
+    } catch (error) {
+        await res.status(400).send(error.message)
+
+    }
+}
+
+
+module.exports = {
+    addbuilding, listofbuilding, updateBuildings, totalRoom, deleteBuildings, updateRoom,
+    singleBuildingDetails,
+    findopenRoomsOfBuilding
+}

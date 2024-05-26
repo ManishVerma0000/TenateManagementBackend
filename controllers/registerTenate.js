@@ -9,10 +9,8 @@ const registerTenate = async (req, res) => {
         dateObj.setMonth(dateObj.getMonth() + 1);
 
         let year = dateObj.getFullYear();
-        let month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Adding 1 since getMonth returns 0-indexed month
+        let month = String(dateObj.getMonth() + 1).padStart(2, "0");
         let day = String(dateObj.getDate()).padStart(2, "0");
-
-        // Concatenate the formatted parts
         let formattedDate = `${year}-${month}-${day}`;
 
         const savedb = await tenat.create({
@@ -28,7 +26,10 @@ const registerTenate = async (req, res) => {
             NextInstallement: formattedDate,
             advanceRent: advanceRent
         });
-        console.log(savedb, 'this is the value in the db')
+
+        
+
+
         await res.status(200).send({ message: "created", data: savedb })
     } catch (error) {
         console.log(error)
@@ -129,7 +130,8 @@ const deleteTenateProfile = async (req, res) => {
         if (!tenatId) {
             await res.status(400).send({ message: "please enter the id" })
         } else {
-            // const deleteuser = await tenat.findByIdAndDelete({ _id: tenatId })
+            const deleteuser = await tenat.findByIdAndDelete({ _id: tenatId })
+            console.log(deleteuser)
             await res.status(200).send({ message: "delted successfully..." })
         }
 

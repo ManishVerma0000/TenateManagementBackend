@@ -60,6 +60,18 @@ const tenatSchema = new mongoose.Schema({
     advanceRent: {
         type: String,
         default: ""
+    },
+    waterCharge: {
+        type: String,
+        default: ""
+    },
+    electricitycharge: {
+        type: String,
+        default: ""
+    },
+    otherCharge: {
+        type: String,
+        default: ""
     }
 })
 

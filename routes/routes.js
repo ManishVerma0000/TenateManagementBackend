@@ -5,15 +5,25 @@ const upload = require('../middleware/multer')
 
 const { registerTenate, updateTenate, tenateProfile, deleteTenateProfile, Tenateprofile } = require('../controllers/registerTenate')
 const listoftenate = require('../controllers/listoftenate')
-const { listofbuilding, addbuilding, updateRoom, findopenRoomsOfBuilding } = require('../controllers/addbuilding')
+const { listofbuilding, addbuilding, updateRoom, deleteBuildings,
+    singleBuildingDetails,
+    updateBuildings,
+    findopenRoomsOfBuilding } = require('../controllers/addbuilding')
 const { registerAdmin, loginadmin, changepassword, forgetPassword, adminProfile } = require('../controllers/registeradmin')
 const findAvailableRoom = require('../controllers/findAviableroom')
 const addharCardVerification = require('../controllers/addharCardVerification')
 const { totalBill, pendingBill, updatePaymentsuccess, makepayementpending, completedPayement } = require('../controllers/rent')
 const { generatepdf, pdf } = require('../controllers/generatePdf')
+const allVacanatRooms = require('../controllers/findallVacantRoom')
+const additionalCharge = require('../controllers/additionalCharge')
 
 
-
+router.post('/additionalCharge', additionalCharge)
+router.get('/singleBuildingDetails', singleBuildingDetails)
+router.get('/updateBuildings', updateBuildings)
+router.get('/deleteBuildings', deleteBuildings)
+router.get('/allVacanatRooms', allVacanatRooms)
+router.post('/updateTenate', updateTenate)
 router.get('/findopenRoomsOfBuilding', findopenRoomsOfBuilding)
 router.post('/updateRoom', updateRoom)
 router.get('/pdf', pdf)

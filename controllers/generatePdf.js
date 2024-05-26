@@ -7,332 +7,310 @@ const tenat = require("../schema/tenatModel");
 // const IP_ADDRESS = require("../ipAddress")
 const generatepdf = async (req, res) => {
 
-    // console.log(req.body, 'this is the data in the body side')
+    console.log(req.body, 'this is the data in the body side')
 
     // const tenateDetails = await tenat.findById({ _id: req.body.id })
+    // console.log(tenateDetails)
     try {
         const html1 = `<!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <title></title>
-            <meta name="description" content="">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <link rel="stylesheet" href="style.css">
-            <style>
-
-                *,
-    *::after,
-    *::before{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-
-    :root{
-        --blue-color: #0c2f54;
-        --dark-color: #535b61;
-        --white-color: #fff;
-    }
-
-    ul{
-        list-style-type: none;
-    }
-    ul li{
-        margin: 2px 0;
-    }
-
-    /* text colors */
-    .text-dark{
-        color: var(--dark-color);
-    }
-    .text-blue{
-        color: var(--blue-color);
-    }
-    .text-end{
-        text-align: right;
-    }
-    .text-center{
-        text-align: center;
-    }
-    .text-start{
-        text-align: left;
-    }
-    .text-bold{
-        font-weight: 700;
-    }
-    /* hr line */
-    .hr{
-        height: 1px;
-        background-color: rgba(0, 0, 0, 0.1);
-    }
-    /* border-bottom */
-    .border-bottom{
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    body{
-        font-family: 'Poppins', sans-serif;
-        color: var(--dark-color);
-        font-size: 14px;
-    }
-    .invoice-wrapper{
-        min-height: 100vh;
-        background-color: rgba(0, 0, 0, 0.1);
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    .invoice{
-        max-width: 850px;
-        margin-right: auto;
-        margin-left: auto;
-        background-color: var(--white-color);
-        padding: 70px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        min-height: 920px;
-    }
-    .invoice-head-top-left img{
-        width: 130px;
-    }
-    .invoice-head-top-right h3{
-        font-weight: 500;
-        font-size: 27px;
-        color: var(--blue-color);
-    }
-    .invoice-head-middle, .invoice-head-bottom{
-        padding: 16px 0;
-    }
-    .invoice-body{
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    .invoice-body table{
-        border-collapse: collapse;
-        border-radius: 4px;
-        width: 100%;
-    }
-    .invoice-body table td, .invoice-body table th{
-        padding: 12px;
-    }
-    .invoice-body table tr{
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    .invoice-body table thead{
-        background-color: rgba(0, 0, 0, 0.02);
-    }
-    .invoice-body-info-item{
-        display: grid;
-        grid-template-columns: 80% 20%;
-    }
-    .invoice-body-info-item .info-item-td{
-        padding: 12px;
-        background-color: rgba(0, 0, 0, 0.02);
-    }
-    .invoice-foot{
-        padding: 30px 0;
-    }
-    .invoice-foot p{
-        font-size: 12px;
-    }
-    .invoice-btns{
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-    }
-    .invoice-btn{
-        padding: 3px 9px;
-        color: var(--dark-color);
-        font-family: inherit;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-    }
-
-    .invoice-head-top, .invoice-head-middle, .invoice-head-bottom{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        padding-bottom: 10px;
-    }
-
-    @media screen and (max-width: 992px){
-        .invoice{
-            padding: 40px;
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 20px;
+            color: #484b51;
+            font-family: Arial, sans-serif;
         }
-    }
 
-    @media screen and (max-width: 576px){
-        .invoice-head-top, .invoice-head-middle, .invoice-head-bottom{
-            grid-template-columns: repeat(1, 1fr);
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .invoice-head-bottom-right{
-            margin-top: 12px;
-            margin-bottom: 12px;
-        }
-        .invoice *{
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
             text-align: left;
         }
-        .invoice{
-            padding: 28px;
-        }
-    }
 
-    .overflow-view{
-        overflow-x: scroll;
-    }
-    .invoice-body{
-        min-width: 600px;
-    }
-
-    @media print{
-        .print-area{
-            visibility: visible;
-            width: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            overflow: hidden;
+        th {
+            background-color: #f2f2f2;
         }
 
-        .overflow-view{
-            overflow-x: hidden;
+        .text-secondary-d1 {
+            color: #728299;
         }
 
-        .invoice-btns{
-            display: none;
+        .page-header {
+            margin: 0 0 1rem;
+            padding-bottom: 1rem;
+            padding-top: .5rem;
+            border-bottom: 1px dotted #e2e2e2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-    }
 
-            </style>
+        .page-title {
+            padding: 0;
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 300;
+        }
 
-        </head>
-        <body>
+        .brc-default-l1 {
+            border-color: #dce9f0;
+        }
 
-            <div class = "invoice" id = "print-area">
-                <div class = "invoice">
-                    <div class = "invoice-container">
-                        <div class = "invoice-head">
-                            <div class = "invoice-head-top">
-                                <div class = "invoice-head-top-left text-start">
-                                    <img src = "images/logo.png">
-                                </div>
-                                <div class = "invoice-head-top-right text-end">
-                                    <h3>Invoice</h3>
-                                </div>
-                            </div>
-                            <div class = "hr"></div>
-                            <div class = "invoice-head-middle">
-                                <div class = "invoice-head-middle-left text-start">
-                                    <p><span class = "text-bold">Date</span>: 05/12/2020</p>
-                                </div>
-                                <div class = "invoice-head-middle-right text-end">
-                                    <p><spanf class = "text-bold">Invoice No:</span>16789</p>
-                                </div>
-                            </div>
-                            <div class = "hr"></div>
-                            <div class = "invoice-head-bottom">
-                                <div class = "invoice-head-bottom-left">
-                                    <ul>
-                                   
-                                    </ul>
-                                </div>
-                                <div class = "invoice-head-bottom-right">
-                                    <ul class = "text-end">
-                                        <li class = 'text-bold'>Pay To:</li>
-                                        <li>Koice Inc.</li>
-                                        <li>2705 N. Enterprise</li>
-                                        <li>Orange, CA 89438</li>
-                                        <li>contact@koiceinc.com</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "overflow-view">
-                            <div class = "invoice-body">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <td class = "text-bold">ROOM RENT</td>
-                                            <td class = "text-bold">ELECTRICITY BILL</td>
-                                            <td class = "text-bold">DEPOSIT</td>
-                                            <td class = "text-bold">BROKERAGE</td>
-                                            <td class = "text-bold">PENDING AMOUNT</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Design</td>
-                                            <td>Creating a website design</td>
-                                            <td>$50.00</td>
-                                            <td>10</td>
-                                            <td class = "text-end">$500.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Development</td>
-                                            <td>Website Development</td>
-                                            <td>$50.00</td>
-                                            <td>10</td>
-                                            <td class = "text-end">$500.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>SEO</td>
-                                            <td>Optimize the site for search engines (SEO)</td>
-                                            <td>$50.00</td>
-                                            <td>10</td>
-                                            <td class = "text-end">$500.00</td>
-                                        </tr>
-                                        <!-- <tr>
-                                            <td colspan="4">10</td>
-                                            <td>$500.00</td>
-                                        </tr> -->
-                                    </tbody>
-                                </table>
-                                <div class = "invoice-body-bottom">
-                                    <div class = "invoice-body-info-item border-bottom">
-                                        <div class = "info-item-td text-end text-bold">Sub Total:</div>
-                                        <div class = "info-item-td text-end">2150.00</div>
-                                    </div>
-                                    <div class = "invoice-body-info-item border-bottom">
-                                        <div class = "info-item-td text-end text-bold">Tax:</div>
-                                        <div class = "info-item-td text-end">$215.00</div>
-                                    </div>
-                                    <div class = "invoice-body-info-item">
-                                        <div class = "info-item-td text-end text-bold">Total:</div>
-                                        <div class = "info-item-td text-end">$21365.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "invoice-foot text-center">
-                            <p><span class = "text-bold text-center">NOTE:&nbsp;</span>This is computer generated receipt and does not require physical signature.</p>
+        hr {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border: 0;
+            border-top: 1px solid rgba(0,0,0,.1);
+        }
 
-                            <div class = "invoice-btns">
-                                <button type = "button" class = "invoice-btn" onclick="printInvoice()">
-                                    <span>
-                                        <i class="fa-solid fa-print"></i>
-                                    </span>
-                                    <span>Print</span>
-                                </button>
-                                <button type = "button" class = "invoice-btn">
-                                    <span>
-                                        <i class="fa-solid fa-download"></i>
-                                    </span>
-                                    <span>Download</span>
-                                </button>
+        .text-grey-m2 {
+            color: #888a8d;
+        }
+
+        .text-success-m2 {
+            color: #86bd68;
+        }
+
+        .font-bolder, .text-600 {
+            font-weight: 600;
+        }
+
+        .text-110 {
+            font-size: 110%;
+        }
+
+        .text-blue {
+            color: #478fcc;
+        }
+
+        .pb-25, .py-25 {
+            padding-bottom: .75rem;
+        }
+
+        .pt-25, .py-25 {
+            padding-top: .75rem;
+        }
+
+        .bgc-default-tp1 {
+            background-color: rgba(121,169,197,.92);
+        }
+
+        .bgc-default-l4, .bgc-h-default-l4:hover {
+            background-color: #f3f8fa;
+        }
+
+        .page-header .page-tools {
+            align-self: flex-end;
+        }
+
+        .btn-light {
+            color: #757984;
+            background-color: #f5f6f9;
+            border-color: #dddfe4;
+            padding: 5px 10px;
+            border: 1px solid #dddfe4;
+            text-decoration: none;
+        }
+
+        .w-2 {
+            width: 1rem;
+        }
+
+        .text-120 {
+            font-size: 120%;
+        }
+
+        .text-primary-m1 {
+            color: #4087d4;
+        }
+
+        .text-danger-m1 {
+            color: #dd4949;
+        }
+
+        .text-blue-m2 {
+            color: #68a3d5;
+        }
+
+        .text-150 {
+            font-size: 150%;
+        }
+
+        .text-60 {
+            font-size: 60%;
+        }
+
+        .text-grey-m1 {
+            color: #7b7d81;
+        }
+
+        .align-bottom {
+            vertical-align: bottom;
+        }
+
+        /* Custom Styles */
+        .invoice-details {
+            margin-left: auto; /* Align to the right */
+            text-align: right;
+        }
+
+        .invoice {
+            margin-left: 20px; /* Add space before "invoice" text */
+        }
+    </style>
+</head>
+<body>
+<div class="page-content container">
+    <div class="page-header text-blue-d2">
+        <h1 class="page-title text-secondary-d1">
+            <span class="invoice">Invoice</span>
+            <small class="page-info">
+                <i class="fa fa-angle-double-right text-80"></i>
+                ID: #111-222
+            </small>
+        </h1>
+
+        
+    </div>
+
+    <div class="container px-0">
+        <div class="row mt-4">
+            <div class="col-12 col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-center text-150">
+                           <i class="fa fa-home fa-2x text-success-m2 mr-1"></i>
+                            <span class="text-default-d3">Jaru Construction</span>
+                            <div>
+                             <span class="text-default-d3" style="font-size: smaller;">plot no. 88 Rushabh Nagar Baroi-Mundra Road, Mundra-Kutch</span>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
-            </div>
+                <!-- .row -->
 
-            <script src = "script.js"></script>
-        </body>
-    </html>`;
+                <hr class="row brc-default-l1 mx-n1 mb-4" />
+
+                <div class="row">
+                    <table class="invoice-details">
+                        <tr>
+                            <td>
+                                <span class="text-sm text-grey-m2 align-middle">To:</span>
+                                <span class="text-600 text-110 text-blue align-middle">Alex Doe</span>
+                                <div class="text-grey-m2">
+                                    <div class="my-1">
+                                        Street, City
+                                    </div>
+                                    <div class="my-1">
+                                        State, Country
+                                    </div>
+                                    <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">111-111-111</b></div>
+                                </div>
+                            </td>
+                            <td>
+                                <hr class="d-sm-none" />
+                                <div class="text-grey-m2" style="margin-left: 55%;">
+                                    <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                                        Invoice
+                                    </div>
+
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #111-222</div>
+
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> Oct 12, 2019</div>
+
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <table>
+                        <thead>
+                            <tr class="text-600 text-white bgc-default-tp1 py-25">
+                                <th>#</th>
+                                <th>Description</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-95 text-secondary-d3">
+                            <tr class="mb-2 mb-sm-0 py-25">
+                                <td>1</td>
+                                <td>Domain registration</td>
+                                <td>2</td>
+                                <td>$10</td>
+                                <td>$20</td>
+                            </tr>
+                            <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
+                                <td>2</td>
+                                <td>Web hosting</td>
+                                <td>1</td>
+                                <td>$15</td>
+                                <td>$15</td>
+                            </tr>
+                            <tr class="mb-2 mb-sm-0 py-25">
+                                <td>3</td>
+                                <td>Software development</td>
+                                <td>--</td>
+                                <td>$1,000</td>
+                                <td>$1,000</td>
+                            </tr>
+                            <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
+                                <td>4</td>
+                                <td>Consulting</td>
+                                <td>1 Year</td>
+                                <td>$500</td>
+                                <td>$500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr />
+
+                    
+                </div>
+
+                <div class="row">
+                    <table class="invoice-details">
+                        <tr>
+                            <td>
+                                <span class="text-sm text-grey-m2 align-middle">Extra note such as company or payment information...</span>
+                                
+                            </td>
+                            <td>
+                                <hr class="d-sm-none" />
+                                <div class="text-grey-m2" style="margin-left: 10%;">
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 48px;">Sub Total</span> $123</div>
+
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 50px;">Tax(10%)</span> $123</div>
+
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 20px;">Total Amount</span> <span class="badge badge-warning badge-pill px-25">$123</span></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <span class="text-secondary-d1 text-105">Thank you for your business</span>
+                    <a href="#" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">Pay Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>`;
 
         if (html1) {
             puppeteer
@@ -354,7 +332,8 @@ const generatepdf = async (req, res) => {
                         path: `${baseDirectory}/${pdfilename}.pdf`
                     });
                     await browser.close();
-                    const pdfUrl = `${process.env.BACKENDURL}/pdf/${pdfilename}.pdf`;
+                    'http://15.207.39.254:7000/'
+                    const pdfUrl = `${'http://192.168.1.4:7000'}/pdf/${pdfilename}.pdf`;
                     return res.status(200).send({ data: pdfUrl });
                 })
                 .catch(error => {
@@ -382,7 +361,7 @@ const pdf = async (req, res) => {
             const data = await tenat.findById({ _id: tenateid })
             // console.log(data, 'this is the value of the id')
             if (data) {
-                axios.post('http://15.207.39.254:7000/' + '/api/generatepdf', data).then(async (response) => {
+                axios.post('http://192.168.1.4:7000/' + 'api/generatepdf', data).then(async (response) => {
                     console.log(response.data.data, 'this is the value of the response')
                     await res.status(200).send(response.data.data)
                 }).catch((err) => {

@@ -28,7 +28,6 @@ const loginadmin = async (req, res) => {
     try {
 
         const { email, password } = req.body;
-        console.log(req.body, 'this is the value of the requestbody')
 
         if (!email || !password) {
             await res.status(400).send({ message: "please enter all the details" })
@@ -43,9 +42,6 @@ const loginadmin = async (req, res) => {
                 } else {
                     await res.status(400).send({ message: "password mismatch" })
                 }
-
-
-                console.log(compareuser.password, 'this is the details here')
             }
 
         }
