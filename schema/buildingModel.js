@@ -22,6 +22,14 @@ const buildingSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         default: ""
+    },
+    completedRoom: {
+        type: Array,
+        default: []
+    },
+    pendingRoom: {
+        type: Array,
+        default: []
     }
 })
 

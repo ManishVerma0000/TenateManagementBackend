@@ -1,19 +1,23 @@
 const tenat = require("../schema/tenatModel")
 
 const totalBill = async (req, res) => {
-    let dateObj = new Date();
-    let year = dateObj.getFullYear();
-    let month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Adding 1 since getMonth returns 0-indexed month
-    let day = String(dateObj.getDate()).padStart(2, "0");
-    let formattedDate = `${year}-${'05'}-${'23'}`;
     try {
-        const tenants = await tenat.find({ NextInstallement: formattedDate });
-        await res.json(tenants);
+        // Step 1: Get the current date and calculate the date three months before
+        const currentDate = new Date();
+        const threeMonthsBeforeDate = new Date(currentDate);
+        threeMonthsBeforeDate.setMonth(threeMonthsBeforeDate.getMonth() - 3);
+        console.log(threeMonthsBeforeDate)
 
+        // Step 2: Query the database to find tenants with installments before this date
+        const tenants = await tenat.find({ "NextInstallement": { $lt: threeMonthsBeforeDate } });
+
+        // Step 3: Send the filtered tenants as the response
+        res.json(tenants);
     } catch (error) {
-        await res.status(400).send({ message: error.message })
+        res.status(400).send({ message: error.message });
     }
-}
+};
+
 
 
 const pendingBill = async (req, res) => {

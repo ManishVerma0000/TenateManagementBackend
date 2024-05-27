@@ -16,8 +16,15 @@ const { totalBill, pendingBill, updatePaymentsuccess, makepayementpending, compl
 const { generatepdf, pdf } = require('../controllers/generatePdf')
 const allVacanatRooms = require('../controllers/findallVacantRoom')
 const additionalCharge = require('../controllers/additionalCharge')
+const checkBillpending = require('../controllers/checkbillpending')
+const { holdBills, updateHoldBills } = require('../controllers/holdBills')
+const monthlyCharge = require('../controllers/monthlycharge')
 
 
+router.get('/monthlyCharge', monthlyCharge)
+router.get('/updateHoldBills', updateHoldBills)
+router.get('/holdBills', holdBills)
+router.get('/checkBillpending', checkBillpending)
 router.post('/additionalCharge', additionalCharge)
 router.get('/singleBuildingDetails', singleBuildingDetails)
 router.get('/updateBuildings', updateBuildings)

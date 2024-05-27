@@ -72,6 +72,10 @@ const tenatSchema = new mongoose.Schema({
     otherCharge: {
         type: String,
         default: ""
+    },
+    onhold: {
+        type: Boolean,
+        default: false
     }
 })
 

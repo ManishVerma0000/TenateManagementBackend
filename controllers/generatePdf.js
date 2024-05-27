@@ -173,7 +173,7 @@ const generatepdf = async (req, res) => {
             <span class="invoice">Invoice</span>
             <small class="page-info">
                 <i class="fa fa-angle-double-right text-80"></i>
-                ID: #111-222
+                ID: ${req.body._id}
             </small>
         </h1>
 
@@ -204,13 +204,13 @@ const generatepdf = async (req, res) => {
                         <tr>
                             <td>
                                 <span class="text-sm text-grey-m2 align-middle">To:</span>
-                                <span class="text-600 text-110 text-blue align-middle">Alex Doe</span>
+                                <span class="text-600 text-110 text-blue align-middle">${req.body.username}</span>
                                 <div class="text-grey-m2">
                                     <div class="my-1">
-                                        Street, City
+                                      ${req.body.address}
                                     </div>
                                     <div class="my-1">
-                                        State, Country
+                                        ${req.body.orgnisation}
                                     </div>
                                     <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">111-111-111</b></div>
                                 </div>
@@ -218,15 +218,15 @@ const generatepdf = async (req, res) => {
                             <td>
                                 <hr class="d-sm-none" />
                                 <div class="text-grey-m2" style="margin-left: 55%;">
-                                    <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                                    <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">ID: #111-222
                                         Invoice
                                     </div>
 
                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #111-222</div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> Oct 12, 2019</div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> ${new Date().toLocaleDateString()}</div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-warning badge-pill px-25">Unpaid til date</span></div>
                                 </div>
                             </td>
                         </tr>
@@ -247,31 +247,31 @@ const generatepdf = async (req, res) => {
                         <tbody class="text-95 text-secondary-d3">
                             <tr class="mb-2 mb-sm-0 py-25">
                                 <td>1</td>
-                                <td>Domain registration</td>
-                                <td>2</td>
-                                <td>$10</td>
-                                <td>$20</td>
+                                <td>Monthly Rent</td>
+                                <td>1</td>
+                                <td>${req.body.rent}</td>
+                                <td>${req.body.rent}</td>
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
                                 <td>2</td>
-                                <td>Web hosting</td>
+                                <td>waterCharge</td>
                                 <td>1</td>
-                                <td>$15</td>
-                                <td>$15</td>
+                                <td>${req.body.waterCharge}</td>
+                                <td>${req.body.waterCharge}</td>
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25">
                                 <td>3</td>
-                                <td>Software development</td>
-                                <td>--</td>
-                                <td>$1,000</td>
-                                <td>$1,000</td>
+                                <td>electricity charge</td>
+                                <td>1</td>
+                               <td>${req.body.electricitycharge}</td>
+                                <td>${req.body.electricitycharge}</td>
                             </tr>
-                            <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
-                                <td>4</td>
-                                <td>Consulting</td>
-                                <td>1 Year</td>
-                                <td>$500</td>
-                                <td>$500</td>
+                            <tr class="mb-2 mb-sm-0 py-25">
+                                <td>3</td>
+                                <td>Other Charge</td>
+                                <td>1</td>
+                               <td>${req.body.otherCharge}</td>
+                                <td>${req.body.otherCharge}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -291,11 +291,8 @@ const generatepdf = async (req, res) => {
                             <td>
                                 <hr class="d-sm-none" />
                                 <div class="text-grey-m2" style="margin-left: 10%;">
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 48px;">Sub Total</span> $123</div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 48px;">Sub Total</span> ${parseInt(req.body.rent)}</div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 50px;">Tax(10%)</span> $123</div>
-
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 20px;">Total Amount</span> <span class="badge badge-warning badge-pill px-25">$123</span></div>
                                 </div>
                             </td>
                         </tr>
@@ -333,7 +330,7 @@ const generatepdf = async (req, res) => {
                     });
                     await browser.close();
                     'http://15.207.39.254:7000/'
-                    const pdfUrl = `${'http://192.168.1.4:7000'}/pdf/${pdfilename}.pdf`;
+                    const pdfUrl = `${'http://15.207.39.254:7000'}/pdf/${pdfilename}.pdf`;
                     return res.status(200).send({ data: pdfUrl });
                 })
                 .catch(error => {
@@ -361,8 +358,8 @@ const pdf = async (req, res) => {
             const data = await tenat.findById({ _id: tenateid })
             // console.log(data, 'this is the value of the id')
             if (data) {
-                axios.post('http://192.168.1.4:7000/' + 'api/generatepdf', data).then(async (response) => {
-                    console.log(response.data.data, 'this is the value of the response')
+                axios.post('http://15.207.39.254:7000/' + 'api/generatepdf', data).then(async (response) => {
+                    // console.log(response.data.data, 'this is the value of the response')
                     await res.status(200).send(response.data.data)
                 }).catch((err) => {
                     console.log(err.message)

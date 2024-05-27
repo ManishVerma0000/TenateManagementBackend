@@ -1,3 +1,4 @@
+const building = require('../schema/buildingModel');
 const Building = require('../schema/buildingModel');
 const tenat = require('../schema/tenatModel')
 
@@ -9,12 +10,11 @@ const registerTenate = async (req, res) => {
         console.log(req.body)
         let dateObj = new Date(dateofjoining);
         dateObj.setMonth(dateObj.getMonth() + 1);
-
+        dateObj.setDate(1);
         let year = dateObj.getFullYear();
         let month = String(dateObj.getMonth() + 1).padStart(2, "0");
         let day = String(dateObj.getDate()).padStart(2, "0");
         let formattedDate = `${year}-${month}-${day}`;
-
         const savedb = await tenat.create({
             dateofjoining: dateofjoining,
             username: username,
@@ -38,8 +38,6 @@ const registerTenate = async (req, res) => {
             message: 'Rooms selected successfully',
             data: building
         });
-
-        // await res.status(200).send({ message: "created", data: savedb })
     } catch (error) {
         console.log(error)
         await res.status(400).send(error.message)
@@ -132,22 +130,55 @@ const tenateProfile = async (req, res) => {
 }
 
 
+
+
 const deleteTenateProfile = async (req, res) => {
     try {
-
         const tenatId = req.query.id;
         if (!tenatId) {
-            await res.status(400).send({ message: "please enter the id" })
-        } else {
-            const deleteuser = await tenat.findByIdAndDelete({ _id: tenatId })
-            console.log(deleteuser)
-            await res.status(200).send({ message: "delted successfully..." })
+            return res.status(400).send({ message: "Please enter the id" });
         }
 
+        // Find the tenant by ID
+        const deleteuser = await tenat.findById(tenatId);
+        if (!deleteuser) {
+            return res.status(404).send({ message: "Tenant not found" });
+        }
+
+        const roomNo = deleteuser.roomNo;
+        const buildingId = deleteuser.buildingId;
+
+        // Find the building by the tenant's building ID
+        const updateBuildings = await Building.findById(buildingId);
+        console.log(updateBuildings, 'this is the value of the building before the value changes')
+        if (!updateBuildings) {
+            return res.status(404).send({ message: "Building not found" });
+        }
+
+        // Check if the room is in completedRoom array and remove it
+        const completedRoomIndex = updateBuildings.completedRoom.indexOf(roomNo);
+        if (completedRoomIndex > -1) {
+            updateBuildings.completedRoom.splice(completedRoomIndex, 1);
+        }
+
+        // Add the room to the rooms array if it's not already there
+        if (!updateBuildings.rooms.includes(roomNo)) {
+            updateBuildings.rooms.push(roomNo);
+        }
+
+        // Save the updated building
+        const data = await updateBuildings.save();
+        console.log(data, 'after the logic is applied this is the fina; value')
+
+        // Delete the tenant
+        await tenat.findByIdAndDelete(tenatId);
+
+        res.status(200).send({ message: "Deleted successfully..." });
     } catch (error) {
-        await res.status(400).send({ message: error.message })
+        res.status(400).send({ message: error.message });
     }
-}
+};
+
 
 const Tenateprofile = async (req, res) => {
     try {

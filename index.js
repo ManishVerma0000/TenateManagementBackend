@@ -46,6 +46,7 @@ async function deleteAllFiles() {
 }
 
 // deleteAllFiles();
+const checkBillpending = require('./controllers/checkbillpending')
 
 cron.schedule('0 0 15 * *', () => {
     const currentTime = new Date().toLocaleTimeString();
@@ -55,6 +56,12 @@ cron.schedule('0 0 15 * *', () => {
 // cron.schedule('*/2 * * * * *', () => {
 //     console.log('running')
 //     fsExtra.emptyDirSync(pdf);
+// });
+
+// cron.schedule('* * * * *', () => {
+//     checkBillpending()
+
+//     console.log('Task executed at:', currentTime);
 // });
 
 
@@ -78,8 +85,8 @@ app.get('/', async (req, res) => {
 
 const ipAddress = '192.168.1.2'
 
-app.listen(port, ipAddress, () => {
-    console.log(`server is listen on the port on  http://${ipAddress}:${port}`)
+app.listen(port, () => {
+    console.log(`server is listen on the port on  http://localhost:${port}`)
 })
 //172.19.224.1
 
