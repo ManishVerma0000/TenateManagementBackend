@@ -326,6 +326,7 @@ const generatepdf = async (req, res) => {
                         }
 
                         const pdfUrl = data.Location;
+                        console.log(pdfUrl, 'this is thevakue of the url')
                         return res.status(200).send({ data: pdfUrl });
                     });
                 })
