@@ -18,7 +18,6 @@ const totalBill = async (req, res) => {
 
 const pendingBill = async (req, res) => {
     try {
-
         const pendingBills = await tenat.find({ ispending: true })
         await res.status(200).send(pendingBills)
 

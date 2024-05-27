@@ -76,7 +76,7 @@ app.get('/', async (req, res) => {
     await res.status(200).send({ message: "welcome to the first page" })
 })
 
-const ipAddress = '192.168.1.4'
+const ipAddress = '192.168.1.2'
 
 app.listen(port, ipAddress, () => {
     console.log(`server is listen on the port on  http://${ipAddress}:${port}`)

@@ -100,7 +100,9 @@ const updateRoom = async (req, res) => {
 
     try {
         const { buildingId, selectedRooms } = req.body;
+        console.log(req.body)
         const building = await Building.findById(buildingId);
+        console.log(building)
         const formattedSelectedRooms = Array.isArray(selectedRooms) ? selectedRooms : [selectedRooms];
         building.completedRoom.push(...formattedSelectedRooms);
         building.rooms = building.rooms.filter(room => !formattedSelectedRooms.includes(room));

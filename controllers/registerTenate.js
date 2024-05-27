@@ -1,3 +1,4 @@
+const Building = require('../schema/buildingModel');
 const tenat = require('../schema/tenatModel')
 
 const registerTenate = async (req, res) => {
@@ -5,6 +6,7 @@ const registerTenate = async (req, res) => {
 
 
         const { username, email, phone, address, orgnisation, dateofjoining, rent, addhar, roomNo, buildingId, advanceRent } = req.body;
+        console.log(req.body)
         let dateObj = new Date(dateofjoining);
         dateObj.setMonth(dateObj.getMonth() + 1);
 
@@ -26,11 +28,18 @@ const registerTenate = async (req, res) => {
             NextInstallement: formattedDate,
             advanceRent: advanceRent
         });
+        const selectedRooms = roomNo
+        const building = await Building.findById(buildingId);
+        const formattedSelectedRooms = Array.isArray(selectedRooms) ? selectedRooms : [selectedRooms];
+        building.completedRoom.push(...formattedSelectedRooms);
+        building.rooms = building.rooms.filter(room => !formattedSelectedRooms.includes(room));
+        await building.save();
+        res.status(200).json({
+            message: 'Rooms selected successfully',
+            data: building
+        });
 
-        
-
-
-        await res.status(200).send({ message: "created", data: savedb })
+        // await res.status(200).send({ message: "created", data: savedb })
     } catch (error) {
         console.log(error)
         await res.status(400).send(error.message)
