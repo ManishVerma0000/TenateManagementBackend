@@ -7,7 +7,7 @@ const tenat = require("../schema/tenatModel");
 // const IP_ADDRESS = require("../ipAddress")
 const generatepdf = async (req, res) => {
 
-    console.log(req.body, 'this is the data in the body side')
+
 
     // const tenateDetails = await tenat.findById({ _id: req.body.id })
     // console.log(tenateDetails)
@@ -329,8 +329,8 @@ const generatepdf = async (req, res) => {
                         path: `${baseDirectory}/${pdfilename}.pdf`
                     });
                     await browser.close();
-                    'http://15.207.39.254:7000/'
-                    const pdfUrl = `${'http://15.207.39.254:7000'}/pdf/${pdfilename}.pdf`;
+
+                    const pdfUrl = `${'http://192.168.1.2:7000'}/pdf/${pdfilename}.pdf`;
                     return res.status(200).send({ data: pdfUrl });
                 })
                 .catch(error => {
@@ -358,7 +358,7 @@ const pdf = async (req, res) => {
             const data = await tenat.findById({ _id: tenateid })
             // console.log(data, 'this is the value of the id')
             if (data) {
-                axios.post('http://15.207.39.254:7000/' + 'api/generatepdf', data).then(async (response) => {
+                axios.post('http://192.168.1.2:7000/' + 'api/generatepdf', data).then(async (response) => {
                     // console.log(response.data.data, 'this is the value of the response')
                     await res.status(200).send(response.data.data)
                 }).catch((err) => {
