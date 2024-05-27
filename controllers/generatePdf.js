@@ -1,16 +1,19 @@
-const puppeteer = require("puppeteer")
-const axios = require("axios")
-const fs = require('fs');
-const path = require('path');
-const tenat = require("../schema/tenatModel");
+const puppeteer = require('puppeteer');
+const AWS = require('aws-sdk');
+const axios = require('axios');
+const tenat = require('../schema/tenatModel');
+const { v4: uuidv4 } = require('uuid');
 
-// const IP_ADDRESS = require("../ipAddress")
+// Configure AWS SDK
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_S3_REGION_NAME
+});
+
+const s3 = new AWS.S3();
+
 const generatepdf = async (req, res) => {
-
-
-
-    // const tenateDetails = await tenat.findById({ _id: req.body.id })
-    // console.log(tenateDetails)
     try {
         const html1 = `<!DOCTYPE html>
 <html>
@@ -173,11 +176,9 @@ const generatepdf = async (req, res) => {
             <span class="invoice">Invoice</span>
             <small class="page-info">
                 <i class="fa fa-angle-double-right text-80"></i>
-                ID: ${req.body._id}
+                ID: 
             </small>
         </h1>
-
-        
     </div>
 
     <div class="container px-0">
@@ -191,14 +192,10 @@ const generatepdf = async (req, res) => {
                             <div>
                              <span class="text-default-d3" style="font-size: smaller;">plot no. 88 Rushabh Nagar Baroi-Mundra Road, Mundra-Kutch</span>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
-                <!-- .row -->
-
                 <hr class="row brc-default-l1 mx-n1 mb-4" />
-
                 <div class="row">
                     <table class="invoice-details">
                         <tr>
@@ -207,10 +204,10 @@ const generatepdf = async (req, res) => {
                                 <span class="text-600 text-110 text-blue align-middle">${req.body.username}</span>
                                 <div class="text-grey-m2">
                                     <div class="my-1">
-                                      ${req.body.address}
+                                     
                                     </div>
                                     <div class="my-1">
-                                        ${req.body.orgnisation}
+                                       
                                     </div>
                                     <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">111-111-111</b></div>
                                 </div>
@@ -218,14 +215,9 @@ const generatepdf = async (req, res) => {
                             <td>
                                 <hr class="d-sm-none" />
                                 <div class="text-grey-m2" style="margin-left: 55%;">
-                                    <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">ID: #111-222
-                                        Invoice
-                                    </div>
-
+                                    <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">ID: #111-222 Invoice</div>
                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #111-222</div>
-
                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> ${new Date().toLocaleDateString()}</div>
-
                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-warning badge-pill px-25">Unpaid til date</span></div>
                                 </div>
                             </td>
@@ -249,36 +241,30 @@ const generatepdf = async (req, res) => {
                                 <td>1</td>
                                 <td>Monthly Rent</td>
                                 <td>1</td>
-                                <td>${req.body.rent}</td>
-                                <td>${req.body.rent}</td>
+                              
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
                                 <td>2</td>
                                 <td>waterCharge</td>
                                 <td>1</td>
-                                <td>${req.body.waterCharge}</td>
-                                <td>${req.body.waterCharge}</td>
+                               
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25">
                                 <td>3</td>
                                 <td>electricity charge</td>
                                 <td>1</td>
-                               <td>${req.body.electricitycharge}</td>
-                                <td>${req.body.electricitycharge}</td>
+                              
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25">
                                 <td>3</td>
                                 <td>Other Charge</td>
                                 <td>1</td>
-                               <td>${req.body.otherCharge}</td>
-                                <td>${req.body.otherCharge}</td>
+                               
                             </tr>
                         </tbody>
                     </table>
 
                     <hr />
-
-                    
                 </div>
 
                 <div class="row">
@@ -286,13 +272,11 @@ const generatepdf = async (req, res) => {
                         <tr>
                             <td>
                                 <span class="text-sm text-grey-m2 align-middle">Extra note such as company or payment information...</span>
-                                
                             </td>
                             <td>
                                 <hr class="d-sm-none" />
                                 <div class="text-grey-m2" style="margin-left: 10%;">
                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 48px;">Sub Total</span> ${parseInt(req.body.rent)}</div>
-
                                 </div>
                             </td>
                         </tr>
@@ -320,18 +304,30 @@ const generatepdf = async (req, res) => {
                     });
 
                     const pdfBuffer = await page.pdf({
-                        format: 'letter'
+                        format: 'A4'
                     });
-                    const pdfilename = Date.now();
-                    const baseDirectory = './pdf';
-                    await page.pdf({
-                        format: 'A4',
-                        path: `${baseDirectory}/${pdfilename}.pdf`
-                    });
+
                     await browser.close();
 
-                    const pdfUrl = `${'http://192.168.1.2:7000'}/pdf/${pdfilename}.pdf`;
-                    return res.status(200).send({ data: pdfUrl });
+                    const pdfFilename = `${uuidv4()}.pdf`;
+                    const bucketName = 'YOUR_S3_BUCKET_NAME';
+                    const s3Params = {
+                        Bucket: process.env.AWS_STORAGE_BUCKET_NAME,
+                        Key: pdfFilename,
+                        Body: pdfBuffer,
+                        ContentType: 'application/pdf',
+                        ACL: 'public-read' // Adjust as needed
+                    };
+
+                    s3.upload(s3Params, (error, data) => {
+                        if (error) {
+                            console.error(error);
+                            return res.status(400).send({ message: error.message });
+                        }
+
+                        const pdfUrl = data.Location;
+                        return res.status(200).send({ data: pdfUrl });
+                    });
                 })
                 .catch(error => {
                     console.error(error);
@@ -340,42 +336,35 @@ const generatepdf = async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error.message)
-        res.status(400).send({ message: error.message })
+        console.log(error.message);
+        res.status(400).send({ message: error.message });
     }
-}
-
-
+};
 
 const pdf = async (req, res) => {
     try {
-
         const tenateid = req.query.id;
-        console.log(tenateid, 'this is the value of the tenate idx')
         if (!tenateid) {
-            await res.status(400).send('please enter the tenate id')
-        } else {
-            const data = await tenat.findById({ _id: tenateid })
-            // console.log(data, 'this is the value of the id')
-            if (data) {
-                axios.post('http://192.168.1.2:7000/' + 'api/generatepdf', data).then(async (response) => {
-                    // console.log(response.data.data, 'this is the value of the response')
-                    await res.status(200).send(response.data.data)
-                }).catch((err) => {
-                    console.log(err.message)
-                })
-            }
+            return res.status(400).send('please enter the tenant id');
         }
 
-
+        const data = await tenat.findById({ _id: tenateid });
+        if (data) {
+            axios.post('http://192.168.1.2:7000/api/generatepdf', data)
+                .then(response => {
+                    res.status(200).send(response.data.data);
+                })
+                .catch(err => {
+                    console.log(err.message);
+                    res.status(400).send({ message: err.message });
+                });
+        } else {
+            res.status(404).send('Tenant not found');
+        }
     } catch (error) {
-        console.log(error.message)
-        await res.status(400).send(error.message)
-
+        console.log(error.message);
+        res.status(400).send({ message: error.message });
     }
-}
+};
 
-
-
-
-module.exports = { generatepdf, pdf }
+module.exports = { generatepdf, pdf };
