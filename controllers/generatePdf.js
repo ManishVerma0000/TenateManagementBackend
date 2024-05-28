@@ -3,6 +3,7 @@ const AWS = require('aws-sdk');
 const axios = require('axios');
 const tenat = require('../schema/tenatModel');
 const { v4: uuidv4 } = require('uuid');
+const building = require('../schema/buildingModel');
 
 // Configure AWS SDK
 AWS.config.update({
@@ -14,6 +15,12 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 const generatepdf = async (req, res) => {
+
+
+    const findBuilding = await building.findById(req.body.buildingId)
+
+
+
     try {
         const html1 = `<!DOCTYPE html>
 <html>
@@ -173,7 +180,7 @@ const generatepdf = async (req, res) => {
 <div class="page-content container">
     <div class="page-header text-blue-d2">
         <h1 class="page-title text-secondary-d1">
-            <span class="invoice">Invoice</span>
+            <span class="invoice">Cash Memo</span>
             <small class="page-info">
                 <i class="fa fa-angle-double-right text-80"></i>
                 ID: 
@@ -202,15 +209,16 @@ const generatepdf = async (req, res) => {
                             <td>
                                 <span class="text-sm text-grey-m2 align-middle">To:</span>
                                 <span class="text-600 text-110 text-blue align-middle">${req.body.username}</span>
-                                <div class="text-grey-m2">
-                                    <div class="my-1">
-                                     
-                                    </div>
-                                    <div class="my-1">
-                                       
-                                    </div>
-                                    <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">111-111-111</b></div>
-                                </div>
+                                 <span class="text-sm text-grey-m2 align-middle">Address:</span>
+                                <span class="text-600 text-110 text-blue align-middle">${req.body.address}</span>
+                                  <span class="text-sm text-grey-m2 align-middle">Phone:</span>
+                                <span class="text-600 text-110 text-blue align-middle">${req.body.phone}</span>
+                                  <span class="text-sm text-grey-m2 align-middle">Orgnisation:</span>
+                                <span class="text-600 text-110 text-blue align-middle">${req.body.orgnisation}</span>
+                                <span class="text-sm text-grey-m2 align-middle">Room No:</span>
+                                <span class="text-600 text-110 text-blue align-middle">${req.body.roomNo}</span>
+                                <span class="text-sm text-grey-m2 align-middle">BuildingName No:</span>
+                                <span class="text-600 text-110 text-blue align-middle">${findBuilding.buildingname} ${' '} ${findBuilding.location}  </span>                                
                             </td>
                             <td>
                                 <hr class="d-sm-none" />
@@ -241,25 +249,31 @@ const generatepdf = async (req, res) => {
                                 <td>1</td>
                                 <td>Monthly Rent</td>
                                 <td>1</td>
+                                <td>${req.body.rent}</td>
+                                <td>${req.body.rent}</td>
                               
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
                                 <td>2</td>
                                 <td>waterCharge</td>
                                 <td>1</td>
+                                <td>${req.body.waterCharge}</td>
+                                <td>${req.body.waterCharge}</td>
                                
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25">
                                 <td>3</td>
                                 <td>electricity charge</td>
                                 <td>1</td>
-                              
+                                <td>${req.body.electricitycharge}</td>
+                                <td>${req.body.electricitycharge}</td>
                             </tr>
                             <tr class="mb-2 mb-sm-0 py-25">
                                 <td>3</td>
                                 <td>Other Charge</td>
                                 <td>1</td>
-                               
+                               <td>${req.body.otherCharge}</td>
+                                <td>${req.body.otherCharge}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -276,7 +290,7 @@ const generatepdf = async (req, res) => {
                             <td>
                                 <hr class="d-sm-none" />
                                 <div class="text-grey-m2" style="margin-left: 10%;">
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 48px;">Sub Total</span> ${parseInt(req.body.rent)}</div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-100" style="margin-right: 48px;">Sub Total</span> ${parseInt(req.body.rent) + parseInt(req.body.electricitycharge) + parseInt(req.body.otherCharge) + parseInt(req.body.waterCharge)}</div>
                                 </div>
                             </td>
                         </tr>
@@ -356,7 +370,7 @@ const pdf = async (req, res) => {
 
         const data = await tenat.findById({ _id: tenateid });
         if (data) {
-            axios.post('http://15.207.39.254:7000/api/generatepdf', data)
+            axios.post('http://192.168.1.2:7000/api/generatepdf', data)
                 .then(response => {
                     res.status(200).send(response.data.data);
                 })

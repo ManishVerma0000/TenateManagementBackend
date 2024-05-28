@@ -33,13 +33,19 @@ const checkBillpending = async () => {
         for (let tenant of tenateDetails) {
             const nextInstallmentDate = new Date(tenant.NextInstallement);
 
+            // nextInstallmentDate.setMonth(nextInstallmentDate.getMonth() + 1);
+            // const tenateupdatedInstallementdate=
+
+
+            const updatednextInstallmentDate = new Date(tenant.NextInstallement).setMonth(new Date(tenant.NextInstallement).getMonth() + 1);
+
             if (currentDate > nextInstallmentDate) {
                 tenant.ispending = true;
                 tenant.waterCharge = '',
                     tenant.electricitycharge = '',
                     tenant.otherCharge = '',
                     tenant.onhold = false
-
+                tenant.NextInstallement = new Date(updatednextInstallmentDate).toLocaleDateString()
                 const data = await tenant.save(); // Save the updated tenant document
                 console.log(data)
             }

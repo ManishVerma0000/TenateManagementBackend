@@ -58,10 +58,9 @@ cron.schedule('0 0 15 * *', () => {
 //     fsExtra.emptyDirSync(pdf);
 // });
 
-// cron.schedule('* * * * *', () => {
-//     checkBillpending()
-
-//     console.log('Task executed at:', currentTime);
+// cron.schedule('*/5 * * * * *', () => {
+//     checkBillpending();
+//     console.log('Task executed at:');
 // });
 
 

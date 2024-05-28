@@ -26,8 +26,11 @@ const registerTenate = async (req, res) => {
             rent: rent, roomNo: roomNo,
             buildingId: buildingId,
             NextInstallement: formattedDate,
-            advanceRent: advanceRent
+            ispending: false,
+            advanceRent: advanceRent, onhold: true
         });
+        console.log(savedb)
+
         const selectedRooms = roomNo
         const building = await Building.findById(buildingId);
         const formattedSelectedRooms = Array.isArray(selectedRooms) ? selectedRooms : [selectedRooms];

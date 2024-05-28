@@ -8,17 +8,17 @@ const addbuilding = async (req, res) => {
     try {
 
 
-        const { buildingname, room, location, caretaker, phoneNumber } = req.body
+        const { buildingname, room, location, caretaker, phoneNumber, buildingRoomName } = req.body
         console.log(req.body)
         console.log(parseInt(room))
 
-        if (!buildingname || !room || !location || !caretaker || !phoneNumber) {
+        if (!buildingname || !room || !location || !caretaker || !phoneNumber || !buildingRoomName) {
             await res.status(400).send('please enter the building')
         } else {
             let arrayOfRooms = []
             const sendAllEmails = async () => {
-                for (let i = 0; i <= parseInt(room); i++) {
-                    arrayOfRooms.push(buildingname + i)
+                for (let i = 1; i <= parseInt(room); i++) {
+                    arrayOfRooms.push(buildingRoomName + i)
                 }
 
             };
@@ -29,7 +29,8 @@ const addbuilding = async (req, res) => {
                 rooms: arrayOfRooms || [],
                 location,
                 phoneNumber,
-                caretaker
+                caretaker,
+                buildingRoomName
             });
             console.log(createBuilding)
 

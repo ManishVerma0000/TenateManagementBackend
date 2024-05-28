@@ -30,6 +30,10 @@ const buildingSchema = new mongoose.Schema({
     pendingRoom: {
         type: Array,
         default: []
+    },
+    buildingRoomName: {
+        type: String,
+        default: ""
     }
 })
 
