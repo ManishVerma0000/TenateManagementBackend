@@ -165,12 +165,25 @@
     <div class="page-content container">
         <div class="page-header text-blue-d2">
             <h1 class="page-title text-secondary-d1">
-                <span class="invoice">Cash Memo</span>
+                <span class="invoice">Invoice</span>
                 <small class="page-info">
                     <i class="fa fa-angle-double-right text-80"></i>
-                    ID:
+                    ID: #111-222
                 </small>
             </h1>
+
+            <div class="page-tools">
+                <div class="action-buttons">
+                    <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
+                        <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
+                        Print
+                    </a>
+                    <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
+                        <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+                        Export
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="container px-0">
@@ -179,68 +192,87 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center text-150">
-                                <i class="fa fa-home fa-2x text-success-m2 mr-1"></i>
-                                <span class="text-default-d3">Jaru Construction</span>
-                                <div>
-                                    <span class="text-default-d3" style="font-size: smaller;">plot no. 88 Rushabh Nagar
-                                        Baroi-Mundra Road, Mundra-Kutch</span>
-                                </div>
+                                <i class="fa fa-book fa-2x text-success-m2 mr-1"></i>
+                                <span class="text-default-d3">Bootdey.com</span>
                             </div>
                         </div>
                     </div>
+                    <!-- .row -->
+
                     <hr class="row brc-default-l1 mx-n1 mb-4" />
+
                     <div class="row">
                         <table class="invoice-details">
                             <tr>
                                 <td>
                                     <span class="text-sm text-grey-m2 align-middle">To:</span>
-                                    <span class="text-600 text-110 text-blue align-middle">${req.body.username}</span>
+                                    <span class="text-600 text-110 text-blue align-middle">Alex Doe</span>
+                                    <div class="text-grey-m2">
+                                        <div class="my-1">
+                                            Street, City
+                                        </div>
+                                        <div class="my-1">
+                                            State, Country
+                                        </div>
+                                        <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i>
+                                            <b class="text-600">111-111-111</b>
+                                        </div>
+                                    </div>
                                 </td>
-
-                            <tr>
                                 <td>
+                                    <hr class="d-sm-none" />
+                                    <div class="text-grey-m2" style="margin-left: 55%;">
+                                        <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                                            Invoice
+                                        </div>
 
-                                    <span class="text-sm text-grey-m2 align-middle">Address:</span>
-                                    <span class="text-600 text-110 text-blue align-middle">${req.body.address}</span>
+                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
+                                                class="text-600 text-90">ID:</span> #111-222</div>
 
+                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
+                                                class="text-600 text-90">Issue Date:</span> Oct 12, 2019</div>
+
+                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
+                                                class="text-600 text-90">Status:</span> <span
+                                                class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+                                    </div>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <span class="text-sm text-grey-m2 align-middle">Phone:</span>
-                                    <span class="text-600 text-110 text-blue align-middle">${req.body.phone}</span>
-
-
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <span class="text-sm text-grey-m2 align-middle">Orgnisation:</span>
-                                    <span
-                                        class="text-600 text-110 text-blue align-middle">${req.body.orgnisation}</span>
-
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <span class="text-sm text-grey-m2 align-middle">Room No:</span>
-                                    <span class="text-600 text-110 text-blue align-middle">${req.body.roomNo}</span>
-
-                                </td>
-
                             </tr>
                             <tr>
                                 <td>
-                                    <span class="text-sm text-grey-m2 align-middle">BuildingName No:</span>
-                                    <span class="text-600 text-110 text-blue align-middle">${findBuilding.buildingname}
-                                        ${' '} ${findBuilding.location} </span>
+                                    <span class="text-sm text-grey-m2 align-middle">To:</span>
+                                    <span class="text-600 text-110 text-blue align-middle">Alex Doe</span>
+                                    <div class="text-grey-m2">
+                                        <div class="my-1">
+                                            Street, City
+                                        </div>
+                                        <div class="my-1">
+                                            State, Country
+                                        </div>
+                                        <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i>
+                                            <b class="text-600">111-111-111</b>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <hr class="d-sm-none" />
+                                    <div class="text-grey-m2" style="margin-left: 55%;">
+                                        <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                                            Invoice
+                                        </div>
+
+                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
+                                                class="text-600 text-90">ID:</span> #111-222</div>
+
+                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
+                                                class="text-600 text-90">Issue Date:</span> Oct 12, 2019</div>
+
+                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
+                                                class="text-600 text-90">Status:</span> <span
+                                                class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+                                    </div>
                                 </td>
                             </tr>
-
-
                         </table>
                     </div>
 
@@ -258,38 +290,38 @@
                             <tbody class="text-95 text-secondary-d3">
                                 <tr class="mb-2 mb-sm-0 py-25">
                                     <td>1</td>
-                                    <td>Monthly Rent</td>
-                                    <td>1</td>
-                                    <td>${req.body.rent}</td>
-                                    <td>${req.body.rent}</td>
-
+                                    <td>Domain registration</td>
+                                    <td>2</td>
+                                    <td>$10</td>
+                                    <td>$20</td>
                                 </tr>
                                 <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
                                     <td>2</td>
-                                    <td>waterCharge</td>
+                                    <td>Web hosting</td>
                                     <td>1</td>
-                                    <td>${req.body.waterCharge}</td>
-                                    <td>${req.body.waterCharge}</td>
-
+                                    <td>$15</td>
+                                    <td>$15</td>
                                 </tr>
                                 <tr class="mb-2 mb-sm-0 py-25">
                                     <td>3</td>
-                                    <td>electricity charge</td>
-                                    <td>1</td>
-                                    <td>${req.body.electricitycharge}</td>
-                                    <td>${req.body.electricitycharge}</td>
+                                    <td>Software development</td>
+                                    <td>--</td>
+                                    <td>$1,000</td>
+                                    <td>$1,000</td>
                                 </tr>
-                                <tr class="mb-2 mb-sm-0 py-25">
-                                    <td>3</td>
-                                    <td>Other Charge</td>
-                                    <td>1</td>
-                                    <td>${req.body.otherCharge}</td>
-                                    <td>${req.body.otherCharge}</td>
+                                <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
+                                    <td>4</td>
+                                    <td>Consulting</td>
+                                    <td>1 Year</td>
+                                    <td>$500</td>
+                                    <td>$500</td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <hr />
+
+
                     </div>
 
                     <div class="row">
@@ -298,40 +330,23 @@
                                 <td>
                                     <span class="text-sm text-grey-m2 align-middle">Extra note such as company or
                                         payment information...</span>
+
                                 </td>
                                 <td>
                                     <hr class="d-sm-none" />
                                     <div class="text-grey-m2" style="margin-left: 10%;">
                                         <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
                                                 class="text-600 text-100" style="margin-right: 48px;">Sub Total</span>
-                                            ${parseInt(req.body.rent) + parseInt(req.body.electricitycharge) +
-                                            parseInt(req.body.otherCharge) + parseInt(req.body.waterCharge)}</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-
-                    <div class="row">
-                        <table class="invoice-details">
-                            <tr>
-                                <td>
-                                    <span class="text-sm text-grey-m2 align-middle">This Cash memo is only for the
-                                        convenience of the customer and it will not be considered as any legal proof,
-                                        This is a computer generated cash memo</span>
-                                </td>
-                                <td>
-                                    <hr class="d-sm-none" />
-                                    <div class="text-grey-m2" style="margin-left: 55%;">
-                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
-                                                class="text-600 text-90">Issue
-                                                Date:</span> Oct 12, 2019</div>
+                                            $123</div>
 
                                         <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
-                                                class="text-600 text-90">Status:</span> <span
-                                                class="badge badge-warning badge-pill px-25">Unpaid</span>
-                                        </div>
+                                                class="text-600 text-100" style="margin-right: 50px;">Tax(10%)</span>
+                                            $123</div>
+
+                                        <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
+                                                class="text-600 text-100" style="margin-right: 20px;">Total
+                                                Amount</span> <span
+                                                class="badge badge-warning badge-pill px-25">$123</span></div>
                                     </div>
                                 </td>
                             </tr>
