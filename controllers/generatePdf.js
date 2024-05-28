@@ -209,16 +209,34 @@ const generatepdf = async (req, res) => {
                             <td>
                                 <span class="text-sm text-grey-m2 align-middle">To:</span>
                                 <span class="text-600 text-110 text-blue align-middle">${req.body.username}</span>
+
+                                                               
+                            </td>
+                            <td>
+
                                  <span class="text-sm text-grey-m2 align-middle">Address:</span>
                                 <span class="text-600 text-110 text-blue align-middle">${req.body.address}</span>
-                                  <span class="text-sm text-grey-m2 align-middle">Phone:</span>
+                                 
+                            </td>
+                            <td>
+                             <span class="text-sm text-grey-m2 align-middle">Phone:</span>
                                 <span class="text-600 text-110 text-blue align-middle">${req.body.phone}</span>
-                                  <span class="text-sm text-grey-m2 align-middle">Orgnisation:</span>
-                                <span class="text-600 text-110 text-blue align-middle">${req.body.orgnisation}</span>
-                                <span class="text-sm text-grey-m2 align-middle">Room No:</span>
+                                
+                               
+                            </td>
+                            <td> 
+                             <span class="text-sm text-grey-m2 align-middle">Orgnisation:</span>
+                             <span class="text-600 text-110 text-blue align-middle">${req.body.orgnisation}</span>
+                               
+                            </td>
+                            <td>
+                             <span class="text-sm text-grey-m2 align-middle">Room No:</span>
                                 <span class="text-600 text-110 text-blue align-middle">${req.body.roomNo}</span>
-                                <span class="text-sm text-grey-m2 align-middle">BuildingName No:</span>
-                                <span class="text-600 text-110 text-blue align-middle">${findBuilding.buildingname} ${' '} ${findBuilding.location}  </span>                                
+                               
+                            </td>
+                            <td>
+                             <span class="text-sm text-grey-m2 align-middle">BuildingName No:</span>
+                                <span class="text-600 text-110 text-blue align-middle">${findBuilding.buildingname} ${' '} ${findBuilding.location}  </span>
                             </td>
                             <td>
                                 <hr class="d-sm-none" />
