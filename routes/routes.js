@@ -19,8 +19,9 @@ const additionalCharge = require('../controllers/additionalCharge')
 const checkBillpending = require('../controllers/checkbillpending')
 const { holdBills, updateHoldBills } = require('../controllers/holdBills')
 const monthlyCharge = require('../controllers/monthlycharge')
+const image = require('../controllers/generateimage')
 
-
+router.get('/image', image)
 router.get('/monthlyCharge', monthlyCharge)
 router.get('/updateHoldBills', updateHoldBills)
 router.get('/holdBills', holdBills)

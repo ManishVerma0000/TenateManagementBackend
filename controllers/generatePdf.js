@@ -295,8 +295,13 @@ const generatepdf = async (req, res) => {
 
         if (html1) {
             puppeteer
-                .launch()
+                .launch({
+                    args: ['--no-sandbox', '--disable-setuid-sandbox']
+                })
                 .then(async browser => {
+
+
+
                     const page = await browser.newPage();
                     const html = html1;
                     await page.setContent(html, {
