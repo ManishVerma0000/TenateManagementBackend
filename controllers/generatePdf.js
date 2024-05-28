@@ -290,7 +290,7 @@ const generatepdf = async (req, res) => {
                                 </tr>
                                 <tr class="mb-2 mb-sm-0 py-25 bgc-default-l4">
                                     <td>2</td>
-                                    <td>waterCharge</td>
+                                    <td>WaterCharge</td>
                                     <td>1</td>
                                     <td>${req.body.waterCharge}</td>
                                     <td>${req.body.waterCharge}</td>
@@ -298,13 +298,13 @@ const generatepdf = async (req, res) => {
                                 </tr>
                                 <tr class="mb-2 mb-sm-0 py-25">
                                     <td>3</td>
-                                    <td>electricity charge</td>
+                                    <td>Electricity charge</td>
                                     <td>1</td>
                                     <td>${req.body.electricitycharge}</td>
                                     <td>${req.body.electricitycharge}</td>
                                 </tr>
                                 <tr class="mb-2 mb-sm-0 py-25">
-                                    <td>3</td>
+                                    <td>4</td>
                                     <td>Other Charge</td>
                                     <td>1</td>
                                     <td>${req.body.otherCharge}</td>
@@ -347,7 +347,7 @@ const generatepdf = async (req, res) => {
                                 </td>
                                 <td>
                                     <hr class="d-sm-none" />
-                                    <div class="text-grey-m2" style="margin-left: 55%;">
+                                    <div class="text-grey-m2" style="margin-left: 40%;">
                                         <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
                                                 class="text-600 text-90">Issue
                                                 Date:</span> ${new Date().toLocaleDateString()}</div>
