@@ -370,7 +370,7 @@ const pdf = async (req, res) => {
 
         const data = await tenat.findById({ _id: tenateid });
         if (data) {
-            axios.post('http://192.168.1.2:7000/api/generatepdf', data)
+            axios.post('http://15.207.39.254:7000/api/generatepdf', data)
                 .then(response => {
                     res.status(200).send(response.data.data);
                 })
