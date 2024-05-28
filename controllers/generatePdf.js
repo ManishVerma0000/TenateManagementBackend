@@ -350,7 +350,7 @@ const generatepdf = async (req, res) => {
                                     <div class="text-grey-m2" style="margin-left: 55%;">
                                         <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
                                                 class="text-600 text-90">Issue
-                                                Date:</span> Oct 12, 2019</div>
+                                                Date:</span> ${new Date().toLocaleDateString()}</div>
 
                                         <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
                                                 class="text-600 text-90">Status:</span> <span

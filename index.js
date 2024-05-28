@@ -75,7 +75,7 @@ app.get('/image', upload, async (req, res) => {
 })
 
 
-
+console.log(new Date().toLocaleDateString(), 'new Date().toLocaleDateString()')
 
 app.get('/', async (req, res) => {
 
